@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie_provider.dart';
-
+//
 class MovieList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
