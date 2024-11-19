@@ -75,7 +75,7 @@ class MovieList extends StatelessWidget {
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
                                         
-                                        fontSize: 32,
+                                        fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 32,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
@@ -101,7 +101,7 @@ class MovieList extends StatelessWidget {
                                       child: Text(
                                         '${movie['imdbRating'] ?? 'N/A'} IMDB',
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize: MediaQuery.of(context).size.width < 600 ? 12 : 14,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
                                         ),
@@ -120,6 +120,7 @@ class MovieList extends StatelessWidget {
                             bottom: 25,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
+                              
                               child: movie['Poster'] != null
                                   ? Image.network(
                                       movie['Poster'],
@@ -128,8 +129,8 @@ class MovieList extends StatelessWidget {
                                       fit: BoxFit.fill,
                                     )
                                   : Container(
-                                      width: 140,
-                                      height: 280,
+                                      width: MediaQuery.of(context).size.width < 600 ? 120 : 160,
+                                      height: MediaQuery.of(context).size.width < 600 ? 180 : 280,
                                       color: Colors.grey,
                                       child: Icon(Icons.movie, color: Colors.white, size: 40),
                                     ),
