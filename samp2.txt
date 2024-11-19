@@ -1,0 +1,124 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/movie_provider.dart';
+
+class MovieList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final movieProvider = Provider.of<MovieProvider>(context);
+
+    if (movieProvider.isLoading) {
+      return Center(child: CircularProgressIndicator());
+    }
+
+    if (movieProvider.movies.isEmpty) {
+      return Center(
+        child: Text(
+          'No movies found!',
+          style: TextStyle(color: Colors.white),
+        ),
+      );
+    }
+
+    return ListView.builder(
+      padding: EdgeInsets.all(16.0),
+      itemCount: movieProvider.movies.length,
+      itemBuilder: (context, index) {
+        final movie = movieProvider.movies[index];
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Movie Poster
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                
+                
+                child: movie['Poster'] != null
+                    ? Image.network(
+                        movie['Poster'],
+                        width: 160,
+                        height: 280,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        
+                        width: double.infinity,
+                        height: 200,
+                        color: Colors.grey,
+                        child: Icon(Icons.movie, color: Colors.white, size: 40),
+                      ),
+              ),
+              SizedBox(height: 8),
+              // Movie Details Box
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 6,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end, // Align content to the right
+                  children: [
+                    Text(
+                      movie['Title'] ?? 'Unknown Title',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      movie['Genre'] ?? 'Unknown Genre',
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end, // Align the row contents to the right
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.green[100],
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Text(
+                            'IMDB: ${movie['imdbRating'] ?? 'N/A'}',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green[700],
+                            ),
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
