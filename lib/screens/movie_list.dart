@@ -53,7 +53,7 @@ class MovieList extends StatelessWidget {
                               alignment: Alignment.bottomRight, // Align details to the bottom right
                               child: Container(
                                 width: 550 - 15,
-                                height: 150, // Fixed height for details
+                                height: 200, // Fixed height for details
                                 padding: EdgeInsets.all(15),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -70,17 +70,24 @@ class MovieList extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      movie['Title'] ?? 'Unknown Title',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                        
-                                        fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 32,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                    Container(
+                                      width: 350-15, // Fixed width
+                                      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(255, 255, 255, 255), // Background color
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                      child: Text(
+                                        movie['Title'] ?? 'Unknown Title',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          fontSize: MediaQuery.of(context).size.width < 600 ? 18 : 22,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                     SizedBox(height: 8),
                                     Text(
@@ -124,13 +131,15 @@ class MovieList extends StatelessWidget {
                               child: movie['Poster'] != null
                                   ? Image.network(
                                       movie['Poster'],
-                                      width: 160, // Fixed width
-                                      height: 280, // 1:2 ratio (height = 2 * width)
+                                      width: 144, // Fixed width
+                                      height: 192, // 1:2 ratio (height = 2 * width)
                                       fit: BoxFit.fill,
                                     )
                                   : Container(
-                                      width: MediaQuery.of(context).size.width < 600 ? 120 : 160,
-                                      height: MediaQuery.of(context).size.width < 600 ? 180 : 280,
+                                      width: MediaQuery.of(context).size.width < 600 ? 144 : 192,
+                                      height: MediaQuery.of(context).size.width < 600 ? 180 : 240,
+                                      //width: 144, // Fixed width
+                                      //height: 192,
                                       color: Colors.grey,
                                       child: Icon(Icons.movie, color: Colors.white, size: 40),
                                     ),
